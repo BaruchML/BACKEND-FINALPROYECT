@@ -60,7 +60,7 @@
         const cid = localStorage.getItem('cid')
         
 
-        fetch(`http://localhost:8080/api/carts/${cid}/${pid}`, {
+        fetch(`/api/carts/${cid}/${pid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

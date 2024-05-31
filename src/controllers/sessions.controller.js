@@ -142,7 +142,7 @@ export class SessionController {
             const subject = 'Restablecer contraseña'
             const html = ` <p> Hola ${user.first_name}, </p>
                             <p> Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar:</p>
-                            // <a href="http://localhost:8080/api/sessions/resetPassword/${token}">Restablecer contraseña</a>
+                            // <a href="/api/sessions/resetPassword/${token}">Restablecer contraseña</a>
                             <p>Este enlace expirará en 1 hora.</p>`
             sendMail({ to, subject, html })
    
