@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
+    "install": "npm install --omit=dev",
     "dev": "nodemon src/app.js --mode development",
     "start:dev": "node--watch src/app.js",
     "testmocha": "mocha test/supertest.test.js"
