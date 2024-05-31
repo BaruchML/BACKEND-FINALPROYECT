@@ -17,6 +17,7 @@ export const configObject = {
     persistence:    process.env.PERSISTENCE,
     gmail_user:     process.env.GMAIL_USER_APP,
     gmail_pass:     process.env.GMAIL_PASS_APP,
+    urlrailway:     process.env.RAILWAYURL
 }
 
 
