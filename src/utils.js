@@ -10,14 +10,26 @@ export default __dirname;
 
 
 
-//multer
-const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,`${__dirname}/public/img`);
+//multer para foto de perfil
+const profileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, `${__dirname}/public/images`);
     },
-    filename:(req, file, cb)=>{
-        cb(null, `${Date.now( )}-${file.originalname}`)
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`)
     }
 })
 
-export const uploader = multer({storage});
+export const profileUpload = multer({ storage: profileStorage });
+//multer para documents
+const documentsStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, `${__dirname}/public/docUsers`);
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`)
+    }
+})
+
+
+export const documentsUpload = multer({ storage: documentsStorage });

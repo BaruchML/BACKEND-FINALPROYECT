@@ -1,8 +1,7 @@
 import { Router } from "express";
 import { fork } from "child_process"
-import {sendMail} from "../utils/sendEmail.js";
-import { sendSms } from "../utils/sendSms.js";
-import {faker} from "@faker-js/faker"
+import { sendMail } from "../utils/sendEmail.js";
+import { faker } from "@faker-js/faker"
 import compression from "express-compression";
 
 
@@ -11,26 +10,26 @@ const router = Router()
 
 
 
-router.get('/logger', (req,res)=>{
+router.get('/logger', (req, res) => {
     req.logger.warning('warning ejecutandose');
     // req.logger.error('error ejecutandose')
     res.send('logger ejecutado')
 })
 
-router.get('/simple',(req,res)=>{
-let sum = 0
-for (let i = 0; i < 1000000; i++) {
-    sum +=i
-}
-res.send(`La suma es${summ}`)
+router.get('/simple', (req, res) => {
+    let sum = 0
+    for (let i = 0; i < 1000000; i++) {
+        sum += i
+    }
+    res.send(`La suma es${summ}`)
 })
 
-router.get('/compleja',(req,res)=>{
-let sum = 0
-for (let i = 0; i < 5e8; i++) {
-    sum +=i
-}
-res.send(`La suma es${summ}`)
+router.get('/compleja', (req, res) => {
+    let sum = 0
+    for (let i = 0; i < 5e8; i++) {
+        sum += i
+    }
+    res.send(`La suma es${summ}`)
 })
 
 
@@ -50,7 +49,7 @@ res.send(`La suma es${summ}`)
 //     let string = 'Hola esto es un string ridiculamente largo'
 //     for (let i = 0; i < 1000000; i++) {
 //         string += 'Hola esto es un string ridiculamente largo'
-        
+
 //     }
 //     res.send(string)
 // })
@@ -71,7 +70,7 @@ res.send(`La suma es${summ}`)
 // const generateUser = ()=>{
 //     let numberOfProducts = parseInt(faker.string.numeric(1,{bannedDigits:['0']}))
 //     let products = []
- 
+
 //     for (let i = 0; i < numberOfProducts; i++) {
 //         products.push(generateProducts());
 //     }

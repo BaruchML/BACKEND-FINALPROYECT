@@ -4,12 +4,12 @@ import loggerWinston from "./logger.js";
 export class MongoSingleton {
     static #instance //variable privada para fuera de la clase
     //static quiere decir que puedo llamar el metodo sin instanciar la classe   
-    constructor(url){
+    constructor(url) {
         mongoose.connect(url)
     }
 
-    static getInstance (url){
-        if(this.#instance){
+    static getInstance(url) {
+        if (this.#instance) {
             loggerWinston.info('Base de datos previamente conectada');
             return this.#instance
 

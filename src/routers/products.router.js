@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { ProductController } from '../controllers/products.controller.js'
-
+import { authorization } from "../middleware/authorization.middleware.js";
 const router = Router()
 const {
     getProduct,
@@ -9,11 +9,11 @@ const {
     updateProduct,
     deleteProduct } = new ProductController()
 router
-    .get('/',getProducts)
-    .get('/:pid',getProduct)
-    .post('/',createProduct)
-    .put('/:pid/:desc',updateProduct)
-    .delete('/:pid',deleteProduct)
+    .get('/', authorization(['PUBLIC']), getProducts)
+    .get('/:pid', authorization(['PUBLIC']), getProduct)
+    .post('/', authorization(['PUBLIC']), createProduct)
+    .put('/:pid/:desc', authorization(['PUBLIC']), updateProduct)
+    .delete('/:pid', authorization(['PUBLIC']), deleteProduct)
 
 
 export default router

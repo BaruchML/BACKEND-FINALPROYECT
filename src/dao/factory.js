@@ -1,4 +1,4 @@
-import { configObject,connectDB } from "../config/config.js";
+import { configObject, connectDB } from "../config/config.js";
 //DAO
 import UserDaoMongo from "./Mongo/userDao.mongo.js";
 import ProductDaoMongo from "./Mongo/productDao.mongo.js";
@@ -16,11 +16,11 @@ let TicketDao
 switch (configObject.persistence) {
     case 'FILE':
         //poner archivos file
-        
+
         break;
     case 'MEMORY':
         //poner archivos memory
-        
+
         break;
 
     default:
@@ -32,4 +32,4 @@ switch (configObject.persistence) {
         break;
 }
 
-export {UserDao, ProductDao, CartDao, TicketDao}
+export { UserDao, ProductDao, CartDao, TicketDao }

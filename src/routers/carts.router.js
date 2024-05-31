@@ -1,23 +1,27 @@
-import {Router} from 'express'
+import { Router } from 'express'
 import { CartController } from '../controllers/carts.controller.js'
+import { authorization } from "../middleware/authorization.middleware.js";
+import { passportCall } from '../middleware/passportCall.js';
+import { TicketController } from '../controllers/ticket.controller.js'
 
 const router = Router()
-const { 
+const {
     getCarts,
     getCartById,
     createCart,
     createCartBody,
     addProductToCart,
     deleteProductFromCart,
-    deleteCart} = new CartController()
+    deleteCart } = new CartController()
+const { ticketPost } = new TicketController()
 router
-    .get('/', getCarts)
-    .get('/:cid',getCartById )
-    .post('/',createCart)
-    .post('/create',createCartBody)
-    //meter 1 producto a un array de un carrito
-    .put('/:cid/:pid',addProductToCart)
-    .delete('/:cid/:pid',deleteProductFromCart)
-    .delete('/:cid',deleteCart)
+    .get('/', authorization(['PUBLIC']), getCarts)
+    .get('/:cid', authorization(['PUBLIC']), getCartById)
+    .post('/', authorization(['PUBLIC']), createCart)
+    .post('/create', authorization(['PUBLIC']), createCartBody)
+    .put('/:cid/:pid', authorization(['PUBLIC']), addProductToCart)
+    .delete('/:cid/:pid', authorization(['PUBLIC']), deleteProductFromCart)
+    .post('/:cid/purchase', passportCall('jwt'), authorization(['USER', 'ADMIN']), ticketPost)
+    .delete('/:cid', authorization(['PUBLIC']), deleteCart)
 
 export default router

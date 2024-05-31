@@ -33,7 +33,7 @@ export class TicketController {
                 result: cart
             })
         } catch (error) {
-             loggerWinston.error(error);
+            loggerWinston.error(error);
         }
 
     }
@@ -48,7 +48,7 @@ export class TicketController {
                 result: result
             })
         } catch (error) {
-             loggerWinston.error(error);
+            loggerWinston.error(error);
         }
 
     }
@@ -66,7 +66,7 @@ export class TicketController {
                 result: result
             })
         } catch (error) {
-             loggerWinston.error(error);
+            loggerWinston.error(error);
         }
     }
 
@@ -78,7 +78,7 @@ export class TicketController {
                 status: 'Success, cart delete'
             })
         } catch (error) {
-             loggerWinston.error(error);
+            loggerWinston.error(error);
         }
 
     }
@@ -87,7 +87,7 @@ export class TicketController {
 
             const { cid } = req.params;
             const cart = await this.serviceCart.getCartBy(cid);
-            
+
             if (!cart) {
                 return res.status(401).json({
                     status: 'error',
@@ -120,30 +120,53 @@ export class TicketController {
                 }
             }
             const total = await totalPurchase.reduce((a, b) => a + b, 0);
+            if (productsNotPurchased.length > 0 && !totalPurchase.length > 0) return res.status(400).send({ status: 'error', error: 'No hay productos suficientes para comprar' })
+            if (productsNotPurchased.length > 0) {
 
-            const ticket = {
-                purchaser: user.first_name,
-                amount: total
+                const cartFiltred = cart.products.filter(item => !productsNotPurchased.includes(item.product._id))
+                cart.products = cartFiltred
+                
+                await this.serviceCart.updateCartProducts(cid, cart)
+
+                const ticket = {
+                    purchaser: user.first_name,
+                    amount: total,
+                    productsPurchased: cart.products
+                }
+                const result = await this.service.createTicket(ticket)
+
+
+                cart.products = []
+                await this.serviceCart.updateCartProducts(cid, cart)
+                res.status(200).json({
+                    status: 'success',
+                    message: 'Purchase completed successfully',
+                    result: result
+                });
+
+            } else {
+
+                const ticket = {
+                    purchaser: user.first_name,
+                    productsPurchased: cart.products,
+                    amount: total
+                }
+                const result = await this.service.createTicket(ticket)
+                cart.products = []
+                await this.serviceCart.updateCartProducts(cid, cart)
+
+                res.status(200).json({
+                    status: 'success',
+                    message: 'Purchase completed successfully',
+                    result: result
+                });
+
             }
-            const result = await this.service.createTicket(ticket)
-             
-            //PENDIENTE LIMPIAR CARRITO
-            // Si hay productos no comprados, actualizamos el carrito para quitarlos
-        //      if (productsNotPurchased.length > 0) {
-        //     await cartService.updateCartProducts(cid, cart.products.filter(item => !productsNotPurchased.includes(item.product._id)));
-        //     } else {
-        //     // Si todos los productos se pudieron comprar, vaciamos el carrito
-        //     await cartService.emptyCart(cid);
-        //     }
 
-            res.status(200).json({
-                status: 'success',
-                message: 'Purchase completed successfully',
-                result: result
-            });
+
         }
         catch (error) {
-             loggerWinston.error(error);
+            loggerWinston.error(error);
         }
 
         ;

@@ -1,3 +1,4 @@
+
 import { cartService, productService } from "../repositories/index.repository.js"
 import loggerWinston from "../utils/logger.js"
 
@@ -64,22 +65,7 @@ export class CartController {
 
     }
     addProductToCart = async (req, res) => {
-        // try {
-        //     const { cid, pid } = req.params
-        //     const {quantity} = req. body
-        //     const product = await this.serviceProduct.getProductBy(pid)
-        //     const cart = await this.service.getCartBy(cid)
 
-        //     cart.products.push({ product })
-        //     let result = await this.service.updateCart(cid, cart)
-
-        //     res.json({
-        //         status: 'SUCCESS',
-        //         result: result
-        //     })
-        // } catch (error) {
-        //     loggerWinston.error(error);
-        // }
         try {
             const { cid, pid } = req.params
             const { quantity } = req.body
@@ -99,12 +85,14 @@ export class CartController {
         try {
             const { cid, pid } = req.params
             const resp = await this.service.deleteProductFromCart(cid, pid)
-            if (!resp) return this.service.status(404).json({status: 'error', message: 'Cart not found'})
+          
+            if (!resp) return res.status(404).json({status: 'error', message: 'Cart not found'})
             res.status(200).json({
                 status: 'success',
                 message: 'Product deleted from cart'
             })        
         } catch (error) {
+         
             loggerWinston.error(error)
         }
     }
@@ -121,6 +109,7 @@ export class CartController {
         }
 
     }
+    
 
 
 }

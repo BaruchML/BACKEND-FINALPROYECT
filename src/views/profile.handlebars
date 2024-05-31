@@ -1,0 +1,142 @@
+<main>
+    <div class="col-auto">
+        <h1>Formulario de carga de archivos</h1>
+
+        <h2>Subir imagen de perfil</h2>
+        <form class="form-group w-50" id="profileimgForm" enctype="multipart/form-data">
+            <label class="form-label" for="profileimg">Seleccionar imagen de perfil:</label>
+            <input class="form-control" type="file" name="profileImg" id="profileimg" accept="image/*" required><br><br>
+            <button class="btn btn-primary mb-3" type="submit">Enviar</button>
+        </form>
+
+    </div>
+    <div class="col-auto">
+        <h2>Subir documentos de usuario</h2>
+        <h3>Solo se permiten 3 archivos</h3>
+        <form class="form-group w-50" id="documentsUserForm" enctype="multipart/form-data">
+            <label class="form-label" for="documents">Seleccionar documentos:</label>
+            <input class="form-control" type="file" name="documentsFiles" id="documents" accept="image/*" multiple
+                required>
+
+            <br><br>
+            <button class="btn btn-primary mb-3" type="submit">Enviar</button>
+        </form>
+        <button class="btn btn-primary mb-3" id="updateUser"> Hacerme premium</button>
+
+    </div>
+
+
+
+</main>
+
+<script>
+
+    const formProfileImg = document.querySelector('#profileimgForm')
+    const documentUser = document.querySelector('#documentsUserForm')
+    const button = document.querySelector('#updateUser')
+    formProfileImg.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(formProfileImg)
+
+        fetch(`api/users/profileimg`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Toastify({
+                        text: "Imagen de perfil subida",
+                        duration: 2000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true,
+                    }).showToast();
+                } else if (data.status === 'error') {
+                    Toastify({
+                        text: `${data.message}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #F40707, #FF9393)",
+                        stopOnFocus: true,
+                    }).showToast();
+                }
+            })
+    })
+
+
+    documentUser.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(documentUser)
+
+        fetch(`api/users/documentsuser`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Toastify({
+                        text: "Envio de archivos correctamente",
+                        duration: 2000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true,
+                    }).showToast();
+    
+                } else if (data.status === 'error') {
+                    Toastify({
+                        text: `${data.message}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #F40707, #FF9393)",
+                        stopOnFocus: true,
+                    }).showToast();
+                }
+            })
+
+    })
+    function updateUser() {
+        console.log('Haciendo premium al usuario')
+        const cid = localStorage.getItem('cid')
+        fetch(`/api/users/${cid}/premium`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Toastify({
+                        text: "¡Felicidades! te has hecho premium",
+                        duration: 2000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    setTimeout(function () {
+                        window.location.href = 'http://localhost:8080/'
+                    }, 2500);
+                } else if (data.status === 'error') {
+                    Toastify({
+                        text: `${data.message}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #F40707, #FF9393)",
+                        stopOnFocus: true,
+                    }).showToast();
+                }
+
+
+            })
+    }
+    button.addEventListener('click', updateUser)
+
+</script>

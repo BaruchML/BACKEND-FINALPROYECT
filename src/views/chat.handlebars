@@ -1,13 +1,14 @@
-<div>
-    <p>Registra tu nombre de usuario y </p>
+<div class="container">
+  <h1>Hola desde Chat</h1>
+  <div>
+    <label class="form-label" for="msj">Escribe un mensaje para comenzar a chatear</label><br>
+    <input class="form-control" name="msj" placeholder="Mensaje" id="chatbox" type="text">
 
-    <p>Escribe un mensaje</p>
-    <form action="/api/message" method="POST" id="chatbox">
-        <label>Nombre</label>
-        <input name =" user"id="user" type="text">
-        <label>Mensaje</label>
-        <input name="message"id="newMessage" type="text">
-        <button type="submit">Enviar mensaje</button>
-    </form>
+  </div>
+  <br>
+  <div class="border border-dark-subtle" id="messageLogs">
+  </div>
 </div>
-<script src="/js/message.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

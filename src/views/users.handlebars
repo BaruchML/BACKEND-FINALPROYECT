@@ -1,7 +1,7 @@
 <div>
     <h1>Users</h1>
     {{#each users}}
-        <p><strong>Nombre: </strong>{{this.first_name}} <strong>Email:</strong>{{this.email}}</p>
+    <p><strong>Nombre: </strong>{{this.first_name}} <strong>Email:</strong>{{this.email}}</p>
     {{/each}}
     {{#if hasPrevPage}}
     <a href="/users?pageQuery={{prevPage}}">Anterior</a>
@@ -10,5 +10,5 @@
     {{#if hasNextPage}}
     <a href="/users?pageQuery={{nextPage}}">Siguiente</a>
     {{/if }}
-    
+
 </div>

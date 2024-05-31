@@ -8,12 +8,19 @@ const router = Router()
 const {
     register,
     login,
-    current
+    logout,
+    forgotPassword,
+    resetPasswordToken,
+    resetPassword
 } = new SessionController()
 
-router.post('/register', register )
-router.post('/login',login )
-router.get('/current', passportCall('jwt'), authorization('PUBLIC'), current )
+router.post('/register', authorization(['PUBLIC']), register)
+router.post('/login', authorization(['PUBLIC']), login)
+router.get('/logout', authorization(['PUBLIC']), logout)
+router.post('/forgot-password', authorization(['PUBLIC']), forgotPassword)
+router.get('/resetPassword/:token', authorization(['PUBLIC']), resetPasswordToken)
+router.post('/resetPassword/', authorization(['PUBLIC']), resetPassword)
+
 
 
 export default router

@@ -8,12 +8,12 @@ class UserDaoMongo {
 
     // getUsersPaginate = async (limit=10, page=1)=> await this.usersModel.paginate({},{limit,page,lean,})
 
-    get = async _ => await this.model.find({ isActive: true })
-    getPremium = async (filter) => await this.model.find(filter)
+    get = async _ => await this.model.find({ isActive: true }).lean()
+    getPremium = async (filter) => await this.model.find(filter).lean()
 
-    getBy = async (filter) => await this.model.findOne(filter)//probar que traiga activos y que sea por filtro
+    getBy = async (filter) => await this.model.findOne(filter).lean()//probar que traiga activos y que sea por filtro
     
-    getById = async (uid) => await this.model.findOne({_id:uid})//probar que traiga activos y que sea por filtro
+    getById = async (uid) => await this.model.findOne({_id:uid}).lean()//probar que traiga activos y que sea por filtro
 
     create = async (newUser) => await this.model.create(newUser)
 

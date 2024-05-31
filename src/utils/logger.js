@@ -11,60 +11,60 @@ import winston from "winston"
 // })
 
 const levelOptions = {
-    levels:{
-        fatal:0,
-        error:1,
-        warning:2,
-        info:3,
-        debug:4,
-        http:5
+    levels: {
+        fatal: 0,
+        error: 1,
+        warning: 2,
+        info: 3,
+        debug: 4,
+        http: 5
     },
-    colors:{
-        fatal:'red',
-        error:'yellow',
-        warning:'yellow',
-        info:'blue',
-        debug:'white',
-        http:'green'
+    colors: {
+        fatal: 'red',
+        error: 'yellow',
+        warning: 'yellow',
+        info: 'blue',
+        debug: 'white',
+        http: 'green'
     },
 
 }
 
 const loggerWinston = winston.createLogger({
     levels: levelOptions.levels,
-    transports:[
+    transports: [
         new winston.transports.Console({
-            level:'info',
+            level: 'info',
             format: winston.format.combine(
-                winston.format.colorize({colors:levelOptions.colors}),
+                winston.format.colorize({ colors: levelOptions.colors }),
                 winston.format.simple()
-                )
+            )
         }),
         new winston.transports.Console({
-            level:'fatal',
+            level: 'fatal',
             format: winston.format.combine(
-                winston.format.colorize({colors:levelOptions.colors}),
+                winston.format.colorize({ colors: levelOptions.colors }),
                 winston.format.simple()
-                )
+            )
         }),
         new winston.transports.Console({
-            level:'error',
+            level: 'error',
             format: winston.format.combine(
-                winston.format.colorize({colors:levelOptions.colors}),
+                winston.format.colorize({ colors: levelOptions.colors }),
                 winston.format.simple()
-                )
+            )
         }),
         new winston.transports.Console({
-            level:'warning',
+            level: 'warning',
             format: winston.format.combine(
-                winston.format.colorize({colors:levelOptions.colors}),
+                winston.format.colorize({ colors: levelOptions.colors }),
                 winston.format.simple()
-                )
+            )
         }),
         new winston.transports.File({
-            filename:'./errors.log',
-            level:'warning',
-            format:winston.format.simple()
+            filename: './errors.log',
+            level: 'warning',
+            format: winston.format.simple()
         })
     ]
 })
@@ -72,7 +72,7 @@ const loggerWinston = winston.createLogger({
 
 
 //middleware
-export const addLogger = (req,res,next)=>{
+export const addLogger = (req, res, next) => {
     req.logger = loggerWinston
     req.logger.info(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
     next()

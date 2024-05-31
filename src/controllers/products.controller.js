@@ -12,6 +12,7 @@ export class ProductController {
                 status: 'Success',
                 payload: allProducts
             })
+           
         } catch (error) {
             loggerWinston.error(error);
         }
@@ -30,8 +31,8 @@ export class ProductController {
     }
     createProduct = async (req, res) => {
         try {
-            const { title, description, price, stock, quantity } = req.body
-            const newProduct = { title, description, price, stock, quantity }
+            const { title, description, price, stock, imgUrl } = req.body
+            const newProduct = { title, description, price, stock, imgUrl }
             const result = await this.services.createProduct(newProduct)
 
             res.send({

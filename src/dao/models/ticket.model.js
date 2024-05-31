@@ -1,4 +1,4 @@
-import { Schema,model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 
 function getRandomInt(min, max) {
@@ -11,28 +11,32 @@ const collection = 'ticket'
 
 const ticketScheema = new Schema({
 
-    code:{
-        type:String,
-        auto:true,
-        default:getRandomInt(10000000,9999999999)
+    code: {
+        type: String,
+        auto: true,
+        default: getRandomInt(10000000, 9999999999)
     },
-    purchase_date:{
-        type:Date,
-        default:Date.now
+    purchase_date: {
+        type: Date,
+        default: Date.now
     },
     amount: {
-        type:Number,
-        required:true},
-    purchaser:{
+        type: Number,
+        required: true
+    },
+    purchaser: {
         // type: Schema.Types.ObjectId,
         // ref: 'users'
-        type:String
- 
+        type: String
+
+    },
+    productsPurchased: {
+        type: Array
     }
-    
+
 })
-ticketScheema.pre('findOne', function(){
+ticketScheema.pre('findOne', function () {
     this.populate('users.user')
 })
 
-export default model(collection,ticketScheema)
+export default model(collection, ticketScheema)

@@ -5,9 +5,9 @@ class ProductDaoMongo {
     constructor() {
         this.model = productsModel
     }
-    get = async () => await this.model.find({ isActive: true })
+    get = async () => await this.model.find({ isActive: true }).lean()
 
-    getBy = async (filter) => await this.model.findOne({_id:filter})
+    getBy = async (filter) => await this.model.findOne({_id:filter}).lean()
     getByStock = async (filter) => await this.model.findOne({_id:filter}, stock)
 
     create = async (newProduct) => await this.model.create(newProduct)

@@ -1,16 +1,78 @@
-<center>
+<div class="container">
+    <h1>Registro</h1>
 
-    <form action="/api/sessions/register" method="POST">
-        <label for="first_name">Name</label><br>
-        <input type="text" name="first_name" placeholder="ingrese el mensaje" /> <br>
-        <label for="last_name">Apellido</label><br>
-        <input type="text" name="last_name" placeholder="ingrese el password" /> <br>
-        <label for="email">Email</label><br>
-        <input type="text" name="email" placeholder="ingrese el Email" /> <br>
-        <label for="password">password</label><br>
-        <input type="text" name="password" placeholder="ingrese el password" /> <br>
-        <label for="role">role</label><br>
-        <input type="text" name="role" placeholder="ingrese el role" /> <br>
-        <button>Submit</button>
+    <form id="registerForm" class="form-group w-50">
+        <label class="form-label" for="first_name">Name</label><br>
+        <input class="form-control" type="text" name="first_name" placeholder="Ingresa tu nombre" /> <br>
+        <label class="form-label" for="last_name">Apellido</label><br>
+        <input class="form-control" type="text" name="last_name" placeholder="Ingresa tus apellidos" /> <br>
+        <label class="form-label" for="email">Email</label><br>
+        <input class="form-control" type="text" name="email" placeholder="Ingresa tu Email" /> <br>
+        <label class="form-label" for="password">Password</label><br>
+        <input class="form-control" type="text" name="password" placeholder="Ingresa tu contraseña" /> <br>
+        <label class="form-label" for="role">Role</label><br>
+        <input class="form-control" type="text" name="role" placeholder="ingresa tu rol" /> <br>
+        <br>
+        <button class="btn btn-outline-dark mt-3 w-100">Submit</button>
     </form>
-</center>
+
+    <button type="button" class="btn btn-outline-primary">
+        <a class="w-50 link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            href="/login">Go to Login</a>
+    </button>
+
+</div>
+
+<script>
+
+    const handleSubmit = function (evt) {
+        evt.preventDefault()
+        let first_name = document.querySelector('input[name="first_name"]').value
+        let last_name = document.querySelector('input[name="last_name"]').value
+        let email = document.querySelector('input[name="email"]').value
+        let password = document.querySelector('input[name="password"]').value
+        let role = document.querySelector('input[name="role"]').value
+        fetch('/api/sessions/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                first_name,
+                last_name,
+                email,
+                password,
+                role
+            })
+        })
+            .then(resp => resp.json())
+            .then(resp => {
+                if (resp.status === 'success') {
+                    localStorage.setItem('cid', resp.cid)
+                    localStorage.setItem('token', resp.token)
+                    Toastify({
+                        text: "Registro exitoso",
+                        duration: 2000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    setTimeout(function () {
+                        window.location.href = 'http://localhost:8080/'
+                    }, 2500);
+                } else if (resp.status === 'error') {
+                    Toastify({
+                        text: `${resp.message}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #F40707, #FF9393)",
+                        stopOnFocus: true,
+                    }).showToast();
+                }
+            })
+    }
+
+    document.querySelector('#registerForm').addEventListener('submit', handleSubmit)
+</script>

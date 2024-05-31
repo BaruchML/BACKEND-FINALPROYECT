@@ -1,12 +1,66 @@
+<div class="container">
+    <h1>Login</h1>
+    <form class="form-group w-50" id="loginForm">
+        <label class="form-label">Email</label>
+        <input type="text" name="email" class="form-control" placeholder="Ingresa tu Email">
+        <label class="form-label">Password</label>
+        <input type="text" name="password" class="form-control" placeholder="Ingresa tu contraseña">
 
-<center>
-<h1>Login</h1>
-<form action="/api/sessions/login" method="POST">
-<label for="email">Email</label><br>
-<input type="text" name="email" placeholder="ingrese el mensaje"/> <br>
-<label for="password">password</label><br>
-<input type="text" name="password" placeholder="ingrese el password"/> <br>
-<button>Submit</button>
-</form><br>
-<button>
-    <a href="/api/sessions/github">GITHUB</a></button>
+        <input class="btn btn-outline-dark mt-3 w-100" type="submit">
+    </form>
+    <a class="btn btn-dark mt-3 w-50" href="/forgotPassword">Olvide la contraseña</a>
+    <br>
+    <br>
+    <button type="button" class="btn btn-outline-primary">
+        <a class="w-50 link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            href="/register">Go to Register</a>
+    </button>
+
+</div>
+<script>
+    const handleSubmit = function (evt) {
+        evt.preventDefault()
+        let email = document.querySelector('input[name="email"]').value
+        let password = document.querySelector('input[name="password"]').value
+        fetch('/api/sessions/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        })
+            .then(resp => resp.json())
+            .then(resp => {
+                if (resp.status === 'success') {
+                    localStorage.setItem('cid', resp.cid)
+                    localStorage.setItem('token', resp.token)
+                    Toastify({
+                        text: "Login exitoso",
+                        duration: 2000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    setTimeout(function () {
+                        window.location.href = 'http://localhost:8080/'
+                    }, 2500);
+
+                } else if (resp.status === 'error') {
+                    Toastify({
+                        text: `${resp.message}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: 'right',
+                        backgroundColor: "linear-gradient(to right, #F40707, #FF9393)",
+                        stopOnFocus: true,
+                    }).showToast();
+                }
+            })
+    }
+
+    document.querySelector('#loginForm').addEventListener('submit', handleSubmit)
+</script>

@@ -13,7 +13,7 @@ export const passportCall = strategy => {
             req.user = user //esto antes lo hacia automaticamente pero debemos de hacerlo ahora nosotros
             next()
         })
-        // (req,res,next) //se los pasamos nuevamente para que se autoejecute la funcion 
+        (req,res,next) //se los pasamos nuevamente para que se autoejecute la funcion 
 
     }
 }

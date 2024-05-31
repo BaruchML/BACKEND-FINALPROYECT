@@ -8,6 +8,9 @@ const productsSchema = new Schema({
     category: {
         type: String,
     },
+    imgUrl: {
+        type: String,
+    },
     stock: {
         type: Number
     },

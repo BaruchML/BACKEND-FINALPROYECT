@@ -49,6 +49,9 @@ const userSchema = new Schema({
     },
     documents:{
         type: Array,        
+    },
+    thumbnail:{
+        type:String
     }
 })
 

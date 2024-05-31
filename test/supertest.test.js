@@ -6,20 +6,20 @@ import supertest from "supertest";
 const expect = chai.expect
 const requester = supertest('http://localhost:8080')
 
-describe('Testing general', ()=>{
-    describe('Test de products',()=>{
-        it('Testing de endpoint POST /api/products debe crear un producto correctamente', async function (){
+describe('Testing general', () => {
+    describe('Test de products', () => {
+        it('Testing de endpoint POST /api/products debe crear un producto correctamente', async function () {
             const productMock = {
                 title: 'Television',
                 description: 'samsung',
                 price: 100,
                 stock: 10,
-            } 
+            }
 
             const resp = await requester.post('/api/products').send(productMock)  //metodo normal
             console.log(resp);
-            
-            const {statusCode, ok, _body} = await requester.post('/api/products').send(productMock)  //haciendo destructuring de variables y hacer validaciones
+
+            const { statusCode, ok, _body } = await requester.post('/api/products').send(productMock)  //haciendo destructuring de variables y hacer validaciones
             expect(_body.result).to.have.property('_id')
             console.log(statusCode)
             console.log(ok)
@@ -28,7 +28,7 @@ describe('Testing general', ()=>{
 
         })
         it('Testing del endpoint GET /api/products debe traer todos los productos correctamente', async function () {
-            const {_body, ok, statusCode} = await requester.get('/api/products')
+            const { _body, ok, statusCode } = await requester.get('/api/products')
             expect(ok).to.be.true
             expect(statusCode).to.be.equal(200)
         })
@@ -64,5 +64,5 @@ describe('Testing general', ()=>{
 })
 
 
-//como es un endpoint tendremos varias respuestas 
+//como es un endpoint tendremos varias respuestas
 //statuscode ok
