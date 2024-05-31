@@ -1,4 +1,3 @@
-
 {{!-- PROYECTO FINAL --}}
 <!DOCTYPE html>
 <html lang="en">
@@ -20,32 +19,37 @@
     <nav class="navbar border-bottom border-body navbar-expand-lg bg-body-teritary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/inicio">Inicio</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/profile">Perfil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/profile">Perfil</a>
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Productos</a>
+                        <a class="nav-link" href="/">Productos</a>
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/chat">Chats en tiempo real</a>
+                        <a class="nav-link" href="/chat">Chats en tiempo real</a>
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/register">Registro</a>
+                        <a class="nav-link" href="/register">Registro</a>
 
                     </li>
                     <li class="nav-item">
 
-                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a id="logout" class="nav-link active" href="/api/sessions/logout">Logout</a>
+                        <a class="nav-link" href="/api/sessions/logout">Logout</a>
 
                     </li>
+                    
                 </ul>
 
                 {{!-- <a href="/api/users">Usuarios</a> --}}
@@ -59,6 +63,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
