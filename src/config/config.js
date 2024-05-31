@@ -5,7 +5,9 @@ import { MongoSingleton } from '../utils/mongoSingleton.js'
 import loggerWinston from '../utils/logger.js'
 
 
-const {mode} = program.opts()
+// const {mode} = program.opts()
+
+const mode = process.env.NODE_ENV || 'development';
 
 dotenv.config({
     path:mode === 'development' ? './.env.development' : './.env.production'
